@@ -1,6 +1,6 @@
 * Route Lookup With Binary Search
 
-This project is an implementation in C of the algorithm [[https://cseweb.ucsd.edu/~varghese/PAPERS/tocs01mw.pdf][Scalable High-Speed Prefix Matching]] developed by M. Waldvogel, G. Varghese, J. Turner, and B. Plattner.
+This project is an implementation in C of the algorithm [[https://cseweb.ucsd.edu/~varghese/PAPERS/tocs01mw.pdf][Scalable High-Speed Prefix Matching]] developed by M. Waldvogel, G. Varghese, J. Turner, and B. Plattner. This project has been developed with the help of Andrés Navarro (https://github.com/andres-nav)
 
 ** How to run
 
