@@ -1,0 +1,48 @@
+* Route Lookup With Binary Search
+
+This project is an implementation in C of the algorithm [[https://cseweb.ucsd.edu/~varghese/PAPERS/tocs01mw.pdf][Scalable High-Speed Prefix Matching]] developed by M. Waldvogel, G. Varghese, J. Turner, and B. Plattner.
+
+** How to run
+
+The following code has a [[file:./Makefile][Makefile]] that will build, test, and run the file. Also there exists some routing tables and some test to see if it works and a linear search algorithm to test it against.
+
+Run the algorithm:
+#+begin_src bash
+make
+./my_route_lookup resources/routing_table.txt resources/prueba3.txt
+#+end_src
+
+Test the algorithm:
+#+begin_src bash
+make test
+#+end_src
+
+You can also change the variables in the Makefile to use other FIB and Input Packet File.
+
+In order to test the algorithm a linear search and a multibit trie implementation is used and compared against to see if all the output ports are computed correctly and check the time difference, a bash script [[file:./compare_algo.sh][compare_algo.sh]] has been developed for that task.
+
+Finally also there has been developed some unit test to check the functionality of the modules which are under the folder [[file:./tests][tests]].
+
+** Algorithm
+
+*** How is built the tree?
+
+This algorithm is built around a binary tree with hashing (to store the information). The binary tree used is the AVL tree as it is self balancing, and the hashing method is Cucko Hashing with two tables (but it can be extended). The steps that this algorithm takes are the following:
+
+1. Build the AVL tree with all the prefixes and add the corresponding prefixes to the tables of the nodes.
+2. Calculate the markers for each right subtree.
+3. Compute for every marker the best matching prefix.
+
+*NOTE:* The prefixes are the ones that appear in the FIB (routing that we want to do), the markers are like hints that tell us that there might be a longer prefix match at the right side of the tree, and the best matching prefix are the longest matching prefix for the marker if we don't find any longer at the right side.
+
+*** How does it find the LMP?
+
+For every node it calculated the corresponding prefix given the netmask of that node and it records the last prefix or best matching prefix of the previous. If it finds a prefix inside the table it goes to the right hand of the tree and if not to the left hand unit an empty node is found.
+
+
+** Further improvements
+
+In order to extend and further improve the algorithm the following ideas could be implemented:
+- [ ] Make the root node the /24 (as it is usually the most common one).
+- [ ] Autosize the node tables size to reduce the storage requirements.
+- [ ] Implement ropes as stated in the paper.
